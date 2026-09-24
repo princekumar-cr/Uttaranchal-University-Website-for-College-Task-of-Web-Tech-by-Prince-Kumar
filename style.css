@@ -1,0 +1,1564 @@
+/* =========================================================
+   PROJECT : College Student Information Portal
+   COLLEGE : Uttaranchal University
+   FILE    : style.css  (shared stylesheet for all 4 pages)
+   TECH    : HTML + CSS + JavaScript (no backend/database)
+   =========================================================
+
+   How this file is organised (top to bottom):
+     1) CSS reset + design variables (colours, fonts, shadows)
+     2) Base element styles (body, containers, links, lists)
+     3) Top info-bar styling
+     4) Header + navigation (including mobile hamburger menu)
+     5) Hero banner (big welcome section on every page top)
+     6) Buttons, section layout & text helpers
+     7) Home page components (welcome banner, intro grid, feature cards, CTA)
+     8) About page components (history cards, vision/mission, principal message)
+     9) Courses page (search bar, course cards)
+    10) Contact page (info panel, form fields, validation messages)
+    11) Footer + scroll-to-top button
+    12) Responsive breakpoints (cloud: desktop -> tablet -> mobile)
+   ========================================================= */
+
+/* ---------- 1) RESET + CSS VARIABLES ---------- */
+/* Resets default margins/padding so every browser looks the same */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* :root = global variables. Change a value once and it updates everywhere. */
+:root {
+  --maroon: #7a0c2e;        /* main brand colour (university maroon) */
+  --maroon-dark: #54071f;   /* darker maroon for footer/overlays */
+  --maroon-light: #a31340;  /* lighter maroon for hover states */
+  --gold: #f0a500;          /* accent colour (gold) */
+  --gold-dark: #c98600;     /* darker gold */
+  --ink: #2b2d42;           /* dark heading text */
+  --text: #4a4e69;          /* normal body text */
+  --bg: #f6f7fb;            /* page background (light grey) */
+  --white: #ffffff;         /* card / section background */
+  --card-shadow: 0 6px 20px rgba(43, 45, 66, 0.08);          /* normal shadow */
+  --card-shadow-hover: 0 14px 34px rgba(122, 12, 46, 0.18);  /* shadow on hover */
+  --radius: 14px;           /* rounded corners for cards */
+  --font-head: "Georgia", "Times New Roman", serif; /* font for headings */
+}
+
+/* Smooth scrolling when user clicks menu anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- 2) BASE ELEMENT STYLES ---------- */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7; /* comfortable line spacing */
+}
+
+/* Images never overflow their container */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none; /* remove underline from links */
+  color: inherit;        /* links inherit parent text colour */
+}
+
+ul {
+  list-style: none; /* remove bullet dots from lists */
+}
+
+/* .container = centred wrapper that keeps content a fixed max width */
+.container {
+  width: min(1140px, 92%);
+  margin: 0 auto;
+}
+
+/* =========================================================
+   TOP INFO BAR  (address / phone / email strip above header)
+   --------------------------------------------------------- */
+.topbar {
+  background: var(--maroon-dark);
+  color: #f3d9e0;
+  font-size: 0.85rem;
+  padding: 8px 0;
+}
+
+/* Split the bar: left side has location+phone, right side has email */
+.topbar .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.topbar span {
+  margin-right: 18px;
+}
+
+.topbar a {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* =========================================================
+   HEADER + NAVIGATION
+   --------------------------------------------------------- */
+header {
+  background: var(--maroon);
+  position: sticky; /* header stays stuck to the top on scroll */
+  top: 0;
+  z-index: 999; /* keep header above all other content */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Nav uses flexbox: brand on left, menu links on right */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.brand {
+  display: flex;      /* logo + text side by side */
+  align-items: center;
+  gap: 12px;
+}
+
+.brand text {
+  font-family: var(--font-head);
+}
+
+/* Fixed logo size (image logo used in the navbar) */
+.brand-logo {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+}
+
+img.brand-logo {
+  /* local logo.png = the "U" emblem with a transparent background,
+     original colours preserved (white background removed in the file) */
+  object-fit: contain;
+}
+
+.brand h1 {
+  font-size: 1.25rem;
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+
+.brand p {
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Menu links */
+.nav-links {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #f4d9df;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 30px; /* pill shaped links */
+  transition: background 0.25s, color 0.25s;
+}
+
+/* Hover effect + .active = the page the user is currently on */
+.nav-links a:hover,
+.nav-links a.active {
+  background: var(--gold);
+  color: var(--maroon-dark);
+}
+
+/* Hamburger menu button = hidden on desktop, shown on mobile */
+.hamburger {
+  display: none;            /* hidden by default */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* The 3 little lines of the hamburger */
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: var(--white);
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* =========================================================
+   HERO BANNER  (big welcome section at top of every page)
+   --------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 82vh;                 /* banner fills ~82% of screen */
+  display: flex;
+  align-items: center;              /* vertical centre */
+  justify-content: center;          /* horizontal centre */
+  text-align: center;
+  color: var(--white);
+  overflow: hidden;
+  /* Semi-transparent maroon + dark overlay on a small tiled pattern */
+  background:
+    linear-gradient(rgba(84, 7, 31, 0.78), rgba(122, 12, 46, 0.82)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' fill='none'/%3E%3Ctext x='8' y='52' font-size='42' fill='%23ffffff' fill-opacity='0.06'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E");
+  background-size: auto;
+  padding: 70px 20px;
+}
+
+/* Decorative gold glow at the bottom of the banner */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1200px 500px at 50% 120%, var(--gold) 0%, transparent 60%);
+  opacity: 0.25;
+  pointer-events: none; /* glow must not block button clicks */
+}
+
+/* Puts the text content ABOVE the background glow */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+}
+
+/* Small badge tag like "Admissions Open 2026-27" */
+.hero .tag {
+  display: inline-block;
+  background: rgba(240, 165, 0, 0.18);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 6px 18px;
+  border-radius: 30px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  margin-bottom: 18px;
+}
+
+/* Big headline. clamp() = font grows smoothly between 1.9rem and 3.4rem */
+.hero h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.9rem, 5vw, 3.4rem);
+  margin-bottom: 16px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: #f5dfe6;
+  margin-bottom: 30px;
+}
+
+/* Row of quick statistics (12,000+ students etc.) */
+.hero .stats {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+/* Glass-style stat pill */
+.stat-pill {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px); /* frosted glass effect */
+  border-radius: 12px;
+  padding: 12px 22px;
+  min-width: 130px;
+}
+
+.stat-pill strong {
+  display: block;
+  font-size: 1.4rem;
+  color: var(--gold);
+}
+
+.stat-pill span {
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   BUTTONS  (reusable pill buttons in 3 styles)
+   --------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 13px 30px;
+  border-radius: 40px; /* fully rounded / pill */
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+/* Gold (filled) button */
+.btn-gold {
+  background: var(--gold);
+  color: var(--maroon-dark);
+}
+
+.btn-gold:hover {
+  background: #ffb727;
+  transform: translateY(-3px); /* lifts up slightly */
+  box-shadow: 0 12px 24px rgba(240, 165, 0, 0.4);
+}
+
+/* Outline (transparent) button */
+.btn-outline {
+  border-color: var(--white);
+  color: var(--white);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--maroon);
+}
+
+/* Maroon (filled) button used on light backgrounds */
+.btn-maroon {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.btn-maroon:hover {
+  background: var(--maroon-light);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(122, 12, 46, 0.3);
+}
+
+/* =========================================================
+   SECTIONS  (generic vertical spacing + centred headings)
+   --------------------------------------------------------- */
+.section {
+  padding: 80px 0;
+}
+
+/* .alt = light-grey/white alternate background for variety */
+.section.alt {
+  background: var(--white);
+}
+
+/* Centred heading block (kicker + title + sub-text) */
+.section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 50px;
+}
+
+.section-head .kicker {
+  color: var(--maroon-light);
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.section-head h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  color: var(--ink);
+  margin: 8px 0 12px;
+}
+
+/* Small gold underline below section titles */
+.section-head h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 4px;
+  margin: 12px auto 0;
+}
+
+/* Gold underline under a word/phrase inside a heading */
+.underline-gold {
+  border-bottom: 3px solid var(--gold);
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+/* =========================================================
+   HOME PAGE COMPONENTS
+   --------------------------------------------------------- */
+
+/* The welcome message banner shown after clicking "Explore Now" */
+/* display:none by default -> .show class makes it appear (see JS) */
+.welcome-banner {
+  margin-top: 26px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: var(--gold);
+  color: var(--maroon-dark);
+  font-weight: 700;
+  display: none;
+  animation: pop 0.4s ease; /* plays the pop keyframe animation */
+  box-shadow: 0 10px 26px rgba(240, 165, 0, 0.45);
+}
+
+/* JavaScript adds this class -> banner becomes visible */
+.welcome-banner.show {
+  display: inline-block;
+}
+
+/* "pop" keyframe = banner scales up from 85% with fade */
+@keyframes pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Intro section: 2-column grid (picture | text) */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: center;
+}
+
+.intro-visual {
+  position: relative; /* needed so the .badge can be positioned in corner */
+}
+
+.intro-visual img {
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* "Est. 2013" badge overlapping the corner of the photo */
+.intro-visual .badge {
+  position: absolute;
+  bottom: -18px;      /* sticks out below the image */
+  right: -14px;       /* sticks out to the right */
+  background: var(--maroon);
+  color: var(--white);
+  padding: 14px 22px;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.intro-visual .badge strong {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.intro-text h3 {
+  font-family: var(--font-head);
+  color: var(--ink);
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+}
+
+.intro-text p {
+  margin-bottom: 14px;
+}
+
+/* Checklist-style bullet list with gold tick marks */
+.intro-text .points {
+  margin: 18px 0 26px;
+}
+
+.intro-text .points li {
+  position: relative;
+  padding-left: 28px; /* space for the tick icon */
+  margin-bottom: 10px;
+}
+
+/* Draws a ✔ symbol before each point using CSS pseudo-element */
+.intro-text .points li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 800;
+}
+
+/* Grid of feature/highlight cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards in a row on desktop */
+  gap: 22px;
+}
+
+.feature-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--gold); /* gold ribbon on top */
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px); /* cards lift up on hover */
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Circular icon holder at the top of each card */
+.feature-card .icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  background: #fbeed7; /* soft gold tint */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--maroon);
+}
+
+.feature-card h3 {
+  color: var(--ink);
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+}
+
+/* Full-width coloured strip used for "call to action" sections */
+.cta-band {
+  background: linear-gradient(110deg, var(--maroon-dark), var(--maroon));
+  color: var(--white);
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.cta-band h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: 12px;
+}
+
+.cta-band p {
+  color: #f3d9e0;
+  margin-bottom: 26px;
+}
+
+/* =========================================================
+   ABOUT PAGE COMPONENTS
+   --------------------------------------------------------- */
+
+/* 2-column grid for the About page cards */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px;
+}
+
+.about-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 30px 28px;
+  box-shadow: var(--card-shadow);
+  border-left: 5px solid var(--gold); /* gold accent on left edge */
+  transition: transform 0.25s;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+}
+
+.about-card h3 {
+  color: var(--maroon);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.about-card p {
+  font-size: 0.95rem;
+}
+
+/* .wide = card that spans the full grid width (like "Our History") */
+.about-card.wide {
+  grid-column: 1 / -1;
+}
+
+/* Principal's message section: photo box + text side by side */
+.principal {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  display: grid;
+  grid-template-columns: 240px 1fr; /* 240px photo, rest is text */
+  gap: 26px;
+  overflow: hidden; /* clips the phot frame / corners */
+}
+
+/* Emoji placeholder representing the principal's photo */
+.principal-photo {
+  background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 5rem;
+}
+
+/* No left padding here because the photo already fills that side */
+.principal-text {
+  padding: 26px 26px 26px 0;
+}
+
+.principal-text h3 {
+  color: var(--maroon);
+  margin-bottom: 8px;
+}
+
+/* Pill badge showing the person's role e.g. "Chancellor" */
+.principal-text .role {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--maroon-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+/* Styled quote at the bottom of the message */
+.principal-text blockquote {
+  border-left: 4px solid var(--gold);
+  padding: 10px 18px;
+  background: #fdf6e8;
+  border-radius: 0 10px 10px 0;
+  font-style: italic;
+  margin-top: 14px;
+}
+
+/* =========================================================
+   DEVELOPER SECTION (Created By Credit on About page)
+   A centred profile card introducing the website developer.
+   --------------------------------------------------------- */
+.developer-card {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 40px 34px 34px;
+  box-shadow: var(--card-shadow);
+  border-top: 5px solid var(--gold);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.developer-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Circular avatar with the developer's initials */
+.dev-avatar {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 18px;
+  background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+  color: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-family: var(--font-head);
+  border: 4px solid var(--gold);
+  box-shadow: 0 10px 24px rgba(122, 12, 46, 0.3);
+}
+
+/* When a real photo is used instead of initials, crop it into the circle */
+img.dev-avatar {
+  object-fit: cover;
+  background: var(--white);
+}
+
+.developer-card h3 {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+/* Small gold divider under the name */
+.developer-card .role {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--maroon-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin: 6px 0 14px;
+}
+
+/* Lines like "Class Representative" / "BCA Student" */
+.dev-badges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.dev-badges span {
+  background: #fbeed7;
+  color: var(--maroon);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid #f3d9a0;
+}
+
+.developer-card p {
+  font-size: 0.95rem;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   COURSES PAGE  (search bar + course cards)
+   --------------------------------------------------------- */
+
+/* Search box row */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.search-bar input {
+  flex: 1 1 380px;      /* input grows, min 380px, max 520px */
+  max-width: 520px;
+  padding: 14px 22px;
+  border: 2px solid #e2e3ee;
+  border-radius: 40px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: var(--white);
+}
+
+/* Gold ring around the input when focused (clicked into) */
+.search-bar input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(240, 165, 0, 0.15);
+}
+
+/* "Showing X of Y courses" counter under the search box */
+.search-count {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+/* Grid that holds all course cards */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+  gap: 24px;
+}
+
+/* Single course card */
+.course-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column; /* stacks coloured top, body, then meta */
+  border-bottom: 4px solid var(--gold);
+}
+
+.course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Coloured header strip of the card (degree name + type) */
+.course-top {
+  background: linear-gradient(120deg, var(--maroon), var(--maroon-light));
+  color: var(--white);
+  padding: 20px 22px;
+  position: relative;
+}
+
+.course-top h3 {
+  font-family: var(--font-head);
+  font-size: 1.2rem;
+}
+
+/* Tiny uppercase label like "UnderGraduate" */
+.course-top .degree {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.course-body {
+  padding: 20px 22px;
+  flex: 1; /* body grows so all cards have equal height */
+}
+
+.course-body p {
+  font-size: 0.92rem;
+  margin-bottom: 14px;
+}
+
+/* Duration & eligibility shown as a label:value list */
+.course-meta {
+  list-style: none;
+  border-top: 1px dashed #e2e3ee; /* thin dashed divider */
+  padding-top: 14px;
+  margin-top: 8px;
+}
+
+.course-meta li {
+  display: flex;
+  justify-content: space-between; /* label left, value right */
+  font-size: 0.88rem;
+  padding: 5px 0;
+}
+
+.course-meta li span:first-child {
+  color: var(--text);
+}
+
+.course-meta li strong {
+  color: var(--maroon);
+}
+
+/* .hidden is added by the search JS to hide non-matching cards */
+.course-card.hidden {
+  display: none;
+}
+
+/* Full-grid message shown when NO course matches the search */
+.no-result {
+  grid-column: 1 / -1; /* spans all grid columns */
+  text-align: center;
+  color: var(--maroon);
+  font-weight: 700;
+  padding: 40px;
+  font-size: 1.1rem;
+}
+
+/* =========================================================
+   CONTACT PAGE  (info panel + form)
+   --------------------------------------------------------- */
+
+/* Two-column layout: left = info panel, right = form */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr; /* 380px fixed + flexible */
+  gap: 34px;
+  align-items: start;
+}
+
+/* Dark maroon info panel with icons */
+.contact-info {
+  background: linear-gradient(150deg, var(--maroon), var(--maroon-dark));
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 34px 28px;
+  position: sticky;  /* panel stays visible while scrolling */
+  top: 110px;        /* stops below the sticky header */
+}
+
+.contact-info h3 {
+  font-family: var(--font-head);
+  margin-bottom: 18px;
+  font-size: 1.3rem;
+}
+
+/* One contact line (icon + label + value) */
+.info-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+/* Square icon chip */
+.info-row .ci {
+  background: rgba(255, 255, 255, 0.12);
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  flex: 0 0 42px;
+}
+
+.info-row strong {
+  display: block;
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+
+.info-row span {
+  font-size: 0.92rem;
+}
+
+/* White card that wraps the form */
+.contact-form-wrap {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 36px 32px;
+}
+
+/* Spacing under each field row */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Puts name/email fields side by side on wider screens */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 7px;
+  font-size: 0.92rem;
+}
+
+/* Shared styling for text inputs, textarea and dropdown */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid #e2e3ee;
+  border-radius: 10px;
+  font-size: 0.98rem;
+  font-family: inherit;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #fbfbfd;
+  color: var(--text);
+}
+
+.form-group textarea {
+  min-height: 130px;
+  resize: vertical; /* allow user to drag height bigger */
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(240, 165, 0, 0.15);
+}
+
+/* Red border + pink background = field that failed validation (JS adds it) */
+.form-group input.invalid,
+.form-group textarea.invalid,
+.form-group select.invalid {
+  border-color: #d62828;
+  background: #fdecec;
+}
+
+/* Small red helper text under an invalid field (hidden by default) */
+.error-msg {
+  color: #d62828;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: none;
+}
+
+/* JS adds .show to make a specific error message visible */
+.error-msg.show {
+  display: block;
+}
+
+/* Big success / error box under the submit button (filled by JS) */
+.form-msg {
+  display: none;
+  margin-top: 18px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.form-msg.success {
+  display: block;
+  background: #e7f8ee; /* green tint */
+  color: #1b7a3f;
+  border: 1px solid #b5e3c6;
+}
+
+.form-msg.error {
+  display: block;
+  background: #fdecec; /* red tint */
+  color: #a31414;
+  border: 1px solid #f2b6b6;
+}
+
+/* =========================================================
+   FOOTER
+   --------------------------------------------------------- */
+.footer {
+  background: var(--maroon-dark);
+  color: #e9d3da;
+  padding: 60px 0 0;
+}
+
+/* 3-column layout inside the footer */
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 36px;
+  padding-bottom: 40px;
+}
+
+.footer h4 {
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-size: 1.05rem;
+}
+
+.footer .brand {
+  margin-bottom: 14px;
+}
+
+.footer .brand h1 {
+  color: var(--white);
+  font-size: 1.1rem;
+}
+
+.footer-links li {
+  margin-bottom: 9px;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+/* Thin ruled line with the copyright text */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 18px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #bfa6ae;
+}
+
+/* =========================================================
+   SCROLL-TO-TOP BUTTON  (fixed bottom-right)
+   --------------------------------------------------------- */
+.scroll-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--maroon);
+  color: var(--gold);
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: none;   /* hidden until user scrolls down (see script.js) */
+  z-index: 800;
+  transition: background 0.2s;
+}
+
+.scroll-top:hover {
+  background: var(--maroon-light);
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN  (breakpoints)
+   Smaller screens -> fewer columns / stacked layout.
+   --------------------------------------------------------- */
+
+/* Tablet landscape / small laptops */
+@media (max-width: 992px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 feature cards per row */
+  }
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 course cards per row */
+  }
+  .intro-grid {
+    grid-template-columns: 1fr;            /* image + text stacked */
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;            /* info + form stacked */
+  }
+  .contact-info {
+    position: static;                      /* no longer sticky */
+  }
+  .footer-top {
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 24px;
+  }
+}
+
+/* Tablets / phones */
+@media (max-width: 768px) {
+  /* Show the hamburger button */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Menu becomes a vertical drop-down under the header */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--maroon-dark);
+    flex-direction: column;
+    padding: 10px 0 20px;
+    gap: 4px;
+    transform: scaleY(0);               /* collapsed (invisible) */
+    transform-origin: top;
+    transition: transform 0.3s;         /* smooth open/close */
+  }
+
+  /* JS adds .open to slide the menu down */
+  .nav-links.open {
+    transform: scaleY(1);
+  }
+
+  .nav-links a {
+    display: block;
+    width: 90%;
+    text-align: center;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;         /* stack about cards */
+  }
+
+  .principal {
+    grid-template-columns: 1fr;         /* photo above text */
+  }
+
+  .principal-photo {
+    min-height: 160px;
+    font-size: 3.5rem;
+  }
+
+  .principal-text {
+    padding: 0 26px 26px;
+  }
+
+  .section {
+    padding: 56px 0;
+  }
+
+  /* Footer: compact left/right layout on phones */
+  .footer-top {
+    grid-template-columns: 1fr 1.3fr;     /* contact column gets more room */
+    text-align: left;
+    gap: 22px 14px;
+  }
+  .footer-top > div:first-child {
+    grid-column: 1 / -1;                 /* college info takes its own line */
+    text-align: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer h4 {
+    margin-bottom: 12px;
+  }
+  .footer-links li {
+    margin-bottom: 8px;                  /* comfortable spacing between rows */
+    line-height: 1.5;
+  }
+  .footer-top > div:last-child .footer-links li:nth-child(2) {
+    white-space: nowrap;                 /* email NEVER wraps */
+    font-size: clamp(0.68rem, 3.3vw, 0.82rem);
+  }
+}
+
+/* Small phones */
+@media (max-width: 560px) {
+  .card-grid,
+  .course-grid {
+    grid-template-columns: 1fr;         /* single column */
+  }
+  .form-row {
+    grid-template-columns: 1fr;         /* form fields stacked */
+  }
+  .brand p {
+    display: none;                      /* hide subtitle on tiny screens */
+  }
+  .intro-visual .badge {
+    right: 6px;
+    bottom: -12px;
+    padding: 10px 16px;
+  }
+}
+
+/* =========================================================
+   AUTH  (navbar Sign In button + Sign In / Create Account popup)
+   --------------------------------------------------------- */
+
+/* Ensure the HTML "hidden" attribute always wins over display rules */
+[hidden] {
+  display: none !important;
+}
+
+/* Right side of the navbar: groups menu links + sign-in + user chip */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* "Sign In" pill button in the header */
+.signin-btn {
+  padding: 9px 24px;
+  font-size: 0.88rem;
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+}
+
+.signin-btn:hover {
+  background: var(--gold);
+  color: var(--maroon-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(240, 165, 0, 0.35);
+}
+
+/* ---- Logged-in user chip (replaces the Sign In button) ---- */
+.user-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 30px;
+}
+
+.user-chip:hover {
+  background: rgba(240, 165, 0, 0.12);
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--maroon-light));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.user-name {
+  color: #f4d9df;
+  font-weight: 600;
+  font-size: 0.88rem;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Tiny dropdown under the chip (Logout) */
+.user-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  color: var(--ink);
+  min-width: 150px;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+  padding: 6px;
+  display: none;
+}
+
+.user-chip.open .user-menu {
+  display: block;
+}
+
+.user-menu a.logout-item {
+  display: block;
+  padding: 9px 14px;
+  border-radius: 8px;
+  color: var(--maroon);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.user-menu a.logout-item:hover {
+  background: var(--maroon);
+  color: #fff;
+}
+
+/* ---- Sign In popup (modal overlay + card) ---- */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(43, 10, 20, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;          /* invisible: lets clicks pass through */
+  transition: opacity 0.25s;
+}
+
+.auth-overlay.open {
+  opacity: 1;
+  pointer-events: auto;          /* visible: catches clicks */
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  padding: 22px 26px 26px;
+  transform: translateY(18px) scale(0.97);   /* pop-in animation start */
+  transition: transform 0.25s;
+  position: relative;
+}
+
+.auth-overlay.open .auth-card {
+  transform: translateY(0) scale(1);         /* pop-in animation end */
+}
+
+/* Header row of the card: logo + close X */
+.auth-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;           /* keep the U-emblem proportions */
+}
+
+.auth-close {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: #f3f0f5;
+  color: var(--text);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.auth-close:hover {
+  background: #e7e2ea;
+  color: var(--maroon);
+}
+
+.auth-title {
+  font-family: var(--font-head);
+  color: var(--maroon);
+  font-size: 1.35rem;
+  text-align: center;
+  margin: 6px 0 14px;
+}
+
+/* Sign In / Create Account tabs */
+.auth-tabs {
+  display: flex;
+  background: #f3f0f5;
+  border-radius: 40px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.auth-tab {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.auth-tab.active {
+  background: #fff;
+  color: var(--maroon);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Form fields */
+.auth-card label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink);
+  margin: 12px 0 6px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #ddd8e0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: #fbfafc;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.auth-card input:focus {
+  border-color: var(--maroon);
+  background: #fff;
+}
+
+/* Password field: space for the Show/Hide button */
+.pwd-wrap {
+  position: relative;
+}
+
+.pwd-wrap input {
+  padding-right: 70px;           /* leave room for the Show/Hide button */
+}
+
+.pwd-toggle {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  border: 0;
+  background: none;
+  color: var(--maroon);
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.pwd-toggle:hover {
+  text-decoration: underline;
+}
+
+/* Red error line under the fields (set by auth.js) */
+.auth-error {
+  min-height: 20px;
+  color: #d92626;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin: 8px 0 2px;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.auth-hint {
+  font-size: 0.78rem;
+  color: #8a8593;
+  text-align: center;
+  margin-top: 14px;
+}
+
+.auth-hint strong {
+  color: var(--maroon);
+}
+
+/* ---- Notification toast (login success, logout, errors) ---- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--maroon-dark);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 40px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1200;
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Small screens: hide the user's name, keep only the avatar chip */
+@media (max-width: 768px) {
+  .user-name {
+    display: none;
+  }
+
+  .auth-card {
+    max-width: 360px;
+  }
+}

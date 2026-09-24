@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     PROJECT : College Student Information Portal
+     COLLEGE : Uttaranchal University
+     PAGE    : Courses (courses.html)
+     TECH    : HTML + CSS + JavaScript (no backend/database)
+     PURPOSE : Shows 6+ courses as cards (name, duration,
+               eligibility, description) + a JavaScript
+               "Search Course" feature that filters cards live.
+  ========================================================= -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courses | Uttaranchal University</title>
+  <!-- Shared stylesheet for all pages -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =============================================
+       HEADER / NAVIGATION
+       "Courses" page link has the .active class.
+       ============================================= -->
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <!-- College logo (image) + college name -->
+        <img class="brand-logo"
+             src="logo.png"
+             alt="Uttaranchal University logo" />
+        <div>
+          <h1>Uttaranchal University</h1>
+          <p>College Student Information Portal</p>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <!-- Hamburger button: only becomes visible on mobile screens -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- Main navigation menu - links to all 4 pages -->
+        <nav class="nav-links" id="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="courses.html" class="active">Courses</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Sign In button (auth.js swaps this for the user chip after login) -->
+        <button class="btn signin-btn" id="authBtn" type="button">Sign In</button>
+
+        <!-- Logged-in user chip: avatar + name + Logout dropdown -->
+        <div class="user-chip" id="userChip" hidden>
+          <span class="user-avatar" id="userAvatar">U</span>
+          <span class="user-name" id="userName">User</span>
+          <div class="user-menu" id="userMenu">
+            <a href="#" id="logoutBtn" class="logout-item">Logout</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =============================================
+       PAGE HEADER BANNER (shorter hero)
+       ============================================= -->
+  <section class="hero" style="min-height: 42vh; padding: 60px 20px;">
+    <div class="hero-content">
+      <span class="tag">Academic Programmes</span>
+      <h2>Explore Our Courses</h2>
+      <p>Type a course name below to search. Undergraduate, postgraduate and doctoral programmes available.</p>
+    </div>
+  </section>
+
+  <!-- =============================================
+       COURSE SEARCH + COURSE CARDS
+       The search input is read by JavaScript; typing a
+       keyword shows only matching courses.
+       ============================================= -->
+  <section class="section">
+    <div class="container">
+
+      <!-- 1) Search box. The JS listens to its "input" event. -->
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="🔍  Search course... e.g. B.Tech, MBA, Law" />
+      </div>
+
+      <!-- 2) Live counter: "Showing X of Y courses" -->
+      <p class="search-count" id="searchCount"></p>
+
+      <!-- 3) Container holding all course cards.
+           NOTE: each <article> has a data-name attribute -
+           JS uses it to decide whether a card matches the search.
+           id="courseGrid" is the parent we filter visually. -->
+      <div class="course-grid" id="courseGrid">
+
+        <!-- ---------- CARD 1 ---------- -->
+        <article class="course-card" data-name="btech computer science engineering cse" data-degree="Undergraduate">
+          <!-- Coloured header: degree type + course title -->
+          <div class="course-top">
+            <span class="degree">Undergraduate</span>
+            <h3>B.Tech – Computer Science & Engineering</h3>
+          </div>
+          <!-- Body: short description + duration & eligibility -->
+          <div class="course-body">
+            <p>Comprehensive engineering programme covering programming, AI, networks and software systems with hands-on labs.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>4 Years</strong></li>
+              <li><span>Eligibility</span><strong>10+2 with Maths & Physics</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 2 ---------- -->
+        <article class="course-card" data-name="mtech artificial intelligence data science" data-degree="Postgraduate">
+          <div class="course-top">
+            <span class="degree">Postgraduate</span>
+            <h3>M.Tech – Artificial Intelligence & Data Science</h3>
+          </div>
+          <div class="course-body">
+            <p>Advanced study in machine learning, deep learning and analytics for future-ready technology careers.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>2 Years</strong></li>
+              <li><span>Eligibility</span><strong>B.Tech / BE in relevant branch</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 3 ---------- -->
+        <article class="course-card" data-name="mba management finance marketing hr" data-degree="Postgraduate">
+          <div class="course-top">
+            <span class="degree">Postgraduate</span>
+            <h3>MBA – Master of Business Administration</h3>
+          </div>
+          <div class="course-body">
+            <p>Specialisations in Finance, Marketing, Human Resources and Business Analytics with live industry projects.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>2 Years</strong></li>
+              <li><span>Eligibility</span><strong>Any graduate + Entrance score</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 4 ---------- -->
+        <article class="course-card" data-name="bba undergraduate business administration" data-degree="Undergraduate">
+          <div class="course-top">
+            <span class="degree">Undergraduate</span>
+            <h3>BBA – Bachelor of Business Administration</h3>
+          </div>
+          <div class="course-body">
+            <p>Foundation in management, economics, entrepreneurship and communication for entry-level business roles.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>3 Years</strong></li>
+              <li><span>Eligibility</span><strong>10+2 any stream (min 50%)</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 5 ---------- -->
+        <article class="course-card" data-name="law llb ba bba legal" data-degree="Integrated">
+          <div class="course-top">
+            <span class="degree">Integrated</span>
+            <h3>BA-LLB / BBA-LLB (Hons.)</h3>
+          </div>
+          <div class="course-body">
+            <p>Five-year integrated law programme with moot court practice, internships and Bar Council recognised degree.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>5 Years</strong></li>
+              <li><span>Eligibility</span><strong>10+2 any stream (min 45%)</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 6 ---------- -->
+        <article class="course-card" data-name="bsc agriculture science honours" data-degree="Undergraduate">
+          <div class="course-top">
+            <span class="degree">Undergraduate</span>
+            <h3>B.Sc (Hons) – Agriculture</h3>
+          </div>
+          <div class="course-body">
+            <p>Modern agri-science training covering crop production, agri-business, soil science and farm management.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>4 Years</strong></li>
+              <li><span>Eligibility</span><strong>10+2 with PCB / PCM</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 7 ---------- -->
+        <article class="course-card" data-name="pharmacy bpharm dpharm diploma" data-degree="Undergraduate">
+          <div class="course-top">
+            <span class="degree">Undergraduate</span>
+            <h3>B.Pharm / D.Pharm – Pharmacy</h3>
+          </div>
+          <div class="course-body">
+            <p>Pharmacy education with modern drug-science labs, clinical exposure and PCI approved curriculum.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>D.Pharm 2 Yr · B.Pharm 4 Yr</strong></li>
+              <li><span>Eligibility</span><strong>10+2 with PCB / PCM</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 8 ---------- -->
+        <article class="course-card" data-name="bcom commerce hons accounting" data-degree="Undergraduate">
+          <div class="course-top">
+            <span class="degree">Undergraduate</span>
+            <h3>B.Com (Hons) – Commerce</h3>
+          </div>
+          <div class="course-body">
+            <p>Strong grounding in accounting, taxation, law and finance with practical tally/ERP skill workshops.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>3 Years</strong></li>
+              <li><span>Eligibility</span><strong>10+2 any stream</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 9 ---------- -->
+        <article class="course-card" data-name="bca computer application it" data-degree="Undergraduate">
+          <div class="course-top">
+            <span class="degree">Undergraduate</span>
+            <h3>BCA – Computer Application</h3>
+          </div>
+          <div class="course-body">
+            <p>Programming, web development, databases and cloud computing for a strong IT career foundation.</p>
+            <ul class="course-meta">
+              <li><span>Duration</span><strong>3 Years</strong></li>
+              <li><span>Eligibility</span><strong>10+2 any stream</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Message shown only when no course matches the search.
+             (Hidden class is toggled by JS below.) -->
+        <div class="no-result hidden" id="noResult">😔 No course found. Try a different keyword.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CALL-TO-ACTION BAND
+       ============================================= -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Confused About Which Course To Choose?</h2>
+      <p>Our academic counsellors help you pick the right programme for your goals – free of charge.</p>
+      <a href="contact.html" class="btn btn-gold">Ask Us</a>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER (same on every page)
+       ============================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <h4>Uttaranchal University</h4>
+          <p>
+            Prem Nagar, Dehradun, Uttarakhand<br />
+            India – 248007
+          </p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About College</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li>☎ +91-135-2770300</li>
+            <li>✉ info@uttaranchaluniversity.ac.in</li>
+            <li>📅 Mon – Sat: 9:00 AM – 5:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Uttaranchal University · College Student Information Portal · All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-top button (shown by script.js after scrolling) -->
+  <button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+  <!-- =============================================
+       COURSE SEARCH JAVASCRIPT
+       Task from project brief:
+       "Add a JavaScript Search Course feature so the user
+        can type a course name and matching courses are shown."
+       ============================================= -->
+  <script>
+    /* 1) Get references to the search box, all course cards,
+          the "no result" message and the counter paragraph. */
+    const input = document.getElementById("searchInput");   // search box
+    const cards = Array.from(document.querySelectorAll(".course-card")); // all cards
+    const noResult = document.getElementById("noResult"); // no-result message
+    const count = document.getElementById("searchCount"); // "Showing X of Y"
+
+    /* 2) filterCourses(): the core function that runs on every keystroke.
+          It decides which cards match the typed keyword. */
+    function filterCourses() {
+      /* Read search value, remove extra spaces, convert to lowercase
+         so matching is case-insensitive (e.g. "mba" == "MBA"). */
+      const q = input.value.trim().toLowerCase();
+
+      let visible = 0; // counts how many cards matched
+
+      /* 3) Loop over every course card */
+      cards.forEach((card) => {
+        /* The data-name attribute holds the searchable keywords.
+           If the box is empty (q is "") every card matches; otherwise
+           check if the keywords CONTAIN the typed text. */
+        const match = !q || card.dataset.name.includes(q);
+
+        /* Add the .hidden class to hide the card (CSS: display:none),
+           or remove it to show the card. */
+        card.classList.toggle("hidden", !match);
+
+        /* Keep count of visible cards for the counter */
+        if (match) visible++;
+      });
+
+      /* 4) If nothing matched, show the "no result" message.
+            (hidden = show message when visible===0) */
+      noResult.classList.toggle("hidden", visible > 0);
+
+      /* 5) Update the counter text */
+      count.textContent = q
+        ? "Showing " + visible + " of " + cards.length + " courses"
+        : "Showing all " + cards.length + " courses";
+    }
+
+    /* 6) Run filterCourses every time the user types/erases in the box */
+    input.addEventListener("input", filterCourses);
+
+    /* 7) Call it once at the start so the page opens with
+          the correct initial counter ("Showing all 9 courses"). */
+    filterCourses();
+  </script>
+
+  <!-- =============================================
+       SIGN IN / CREATE ACCOUNT POPUP
+       Opened by the navbar "Sign In" button.
+       Full login logic with JWT lives in auth.js.
+       ============================================= -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+
+      <!-- Header row: logo + close X -->
+      <div class="auth-head">
+        <img src="logo.png" alt="" class="auth-logo" />
+        <button type="button" class="auth-close" id="authClose" aria-label="Close sign in popup">&times;</button>
+      </div>
+
+      <!-- Title (JS switches text between Sign In / Create Account) -->
+      <h3 class="auth-title" id="authTitle">Sign In</h3>
+
+      <!-- Tabs to switch between the two forms -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-tab="login">Sign In</button>
+        <button type="button" class="auth-tab" data-tab="signup">Create Account</button>
+      </div>
+
+      <!-- ---------- SIGN IN form ---------- -->
+      <form id="loginForm" novalidate>
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="loginPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="loginPass" placeholder="Your password" autocomplete="current-password" />
+          <button type="button" class="pwd-toggle" data-for="loginPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="login"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Sign In</button>
+
+        <p class="auth-hint">Demo login &mdash; <strong>admin@uttaranchal.edu</strong>&nbsp;/&nbsp;<strong>admin123</strong></p>
+      </form>
+
+      <!-- ---------- CREATE ACCOUNT form ---------- -->
+      <form id="signupForm" novalidate hidden>
+        <label for="signupName">Full Name</label>
+        <input type="text" id="signupName" placeholder="e.g. Prince Kumar" autocomplete="name" />
+
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="signupPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="signupPass" placeholder="At least 6 characters" autocomplete="new-password" />
+          <button type="button" class="pwd-toggle" data-for="signupPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="signup"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Create Account</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Small notification toast (login success / logout) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Shared JavaScript: hamburger menu + scroll-to-top -->
+  <script src="script.js"></script>
+
+  <!-- Sign In / JWT login logic (runs on every page) -->
+  <script src="auth.js"></script>
+</body>
+</html>

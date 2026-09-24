@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     PROJECT : College Student Information Portal
+     COLLEGE : Uttaranchal University
+     PAGE    : Home (index.html)
+     TECH    : HTML + CSS + JavaScript (no backend/database)
+     PURPOSE : Landing page - logo, nav, welcome message,
+               college intro, image/banner, "Explore Now" button.
+  ========================================================= -->
+<html lang="en">
+<head>
+  <!-- Page settings: character set + responsive viewport -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Browser tab title -->
+  <title>Uttaranchal University | College Student Information Portal</title>
+  <!-- Link to the single shared stylesheet used by all pages -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =============================================
+       HEADER / NAVIGATION (same on every page)
+       .active class highlights which page is open.
+       ============================================= -->
+  <header class="header">
+    <div class="container nav">
+
+      <!-- College logo (image) + college name -->
+      <a href="index.html" class="brand">
+        <img class="brand-logo"
+             src="logo.png"
+             alt="Uttaranchal University logo" />
+        <div>
+          <h1>Uttaranchal University</h1>
+          <p>College Student Information Portal</p>
+        </div>
+      </a>
+
+      <div class="nav-right">
+
+        <!-- Hamburger button: only becomes visible on mobile screens -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- Main navigation menu - links to all 4 pages -->
+        <nav class="nav-links" id="nav-links">
+          <a href="index.html" class="active">Home</a>
+          <a href="about.html">About</a>
+          <a href="courses.html">Courses</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Sign In button (auth.js swaps this for the user chip after login) -->
+        <button class="btn signin-btn" id="authBtn" type="button">Sign In</button>
+
+        <!-- Logged-in user chip: avatar + name + Logout dropdown -->
+        <div class="user-chip" id="userChip" hidden>
+          <span class="user-avatar" id="userAvatar">U</span>
+          <span class="user-name" id="userName">User</span>
+          <div class="user-menu" id="userMenu">
+            <a href="#" id="logoutBtn" class="logout-item">Logout</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =============================================
+       HERO / BANNER SECTION
+       Big welcome banner with headline, tagline,
+       Explore Now button and quick statistics.
+       ============================================= -->
+  <section class="hero">
+    <div class="hero-content">
+      <!-- Small badge tag -->
+      <span class="tag">Admissions Open 2026-27</span>
+      <h2>Welcome to Uttaranchal University</h2>
+      <p>Empowering students with quality education, modern infrastructure and a vibrant campus nestled in the foothills of the Himalayas.</p>
+
+      <!-- Two action buttons -->
+      <div>
+        <!-- Explore Now -> shows a welcome message via JavaScript -->
+        <button class="btn btn-gold" id="exploreBtn">Explore Now</button>
+        <!-- View Courses -> normal link to the Courses page -->
+        <a href="courses.html" class="btn btn-outline">View Courses</a>
+      </div>
+
+      <!-- Empty box; JavaScript fills it with the welcome message -->
+      <!-- `.show` class is added by JS to make it visible -->
+      <div class="welcome-banner" id="welcomeMsg"></div>
+
+      <!-- Quick stats displayed under the buttons -->
+      <div class="stats">
+        <div class="stat-pill"><strong>12,000+</strong><span>Students</span></div>
+        <div class="stat-pill"><strong>350+</strong><span>Faculty</span></div>
+        <div class="stat-pill"><strong>75+</strong><span>Programmes</span></div>
+        <div class="stat-pill"><strong>NAAC A+</strong><span>Accreditation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       COLLEGE INTRODUCTION SECTION
+       Left = campus photo with badge, Right = text.
+       ============================================= -->
+  <section class="section">
+    <div class="container intro-grid">
+
+      <!-- Campus image with a small "Est. 2013" badge -->
+      <div class="intro-visual">
+        <img src="https://media.collegesathi.com/universities/1770728700302-UU.webp"
+             alt="Uttaranchal University campus" />
+        <div class="badge">
+          <strong>Est. 2013</strong>
+          <span>Excellence in Education</span>
+        </div>
+      </div>
+
+      <!-- Introduction text -->
+      <div class="intro-text">
+        <span class="kicker">About Us</span>
+        <h3>A Place Where Dreams Take Flight</h3>
+        <p>
+          Uttaranchal University is one of North India's leading institutions, offering a
+          wide range of undergraduate, postgraduate and doctoral programmes across
+          Engineering, Management, Law, Life Sciences, Agriculture and more.
+        </p>
+        <!-- Highlight points displayed with tick marks -->
+        <ul class="points">
+          <li>NAAC 'A+' accredited and UGC-recognised university</li>
+          <li>Advanced smart classrooms, labs and central library</li>
+          <li>Industry-aligned curriculum and strong placement support</li>
+          <li>Safe, green and fully residential campus in Dehradun</li>
+        </ul>
+        <!-- Link to About page -->
+        <a href="about.html" class="btn btn-maroon">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       WHY CHOOSE US - 4 FEATURE CARDS
+       4 cards in a responsive grid (CSS grid, no JS).
+       ============================================= -->
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Why Choose Us</span>
+        <h2>Life at <span class="underline-gold">Uttaranchal University</span></h2>
+        <p>Everything a student needs to grow academically, professionally and personally.</p>
+      </div>
+
+      <div class="card-grid">
+        <!-- Card 1 : Quality Education -->
+        <div class="feature-card">
+          <div class="icon">
+            <!-- Graduation-cap SVG icon -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <h3>Quality Education</h3>
+          <p>Experienced faculty and research-driven teaching across 20+ disciplines.</p>
+        </div>
+
+        <!-- Card 2 : Smart Campus -->
+        <div class="feature-card">
+          <div class="icon">
+            <!-- Building SVG icon -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          </div>
+          <h3>Smart Campus</h3>
+          <p>Wi-Fi-enabled campus with modern labs, library and hostel facilities.</p>
+        </div>
+
+        <!-- Card 3 : Placement Support -->
+        <div class="feature-card">
+          <div class="icon">
+            <!-- User/person SVG icon -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M3 21c0-4 4-6 9-6s9 2 9 6"/></svg>
+          </div>
+          <h3>Placement Support</h3>
+          <p>500+ recruiting partners with dedicated career development cell.</p>
+        </div>
+
+        <!-- Card 4 : Sports & Culture -->
+        <div class="feature-card">
+          <div class="icon">
+            <!-- Clock SVG icon -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0 0-20C6 2 2 6 2 12s4 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Sports & Culture</h3>
+          <p>National-level sports facilities and a vibrant cultural fest calendar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CALL-TO-ACTION BAND
+       Full-width coloured strip that links to Contact.
+       ============================================= -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Ready to Begin Your Journey?</h2>
+      <p>Explore our undergraduate and postgraduate programmes and plan your visit to campus.</p>
+      <a href="contact.html" class="btn btn-gold">Contact Admissions</a>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER (same on every page)
+       3 columns: about, quick links, contact.
+       ============================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <!-- Column 1 : college short info -->
+        <div>
+          <h4>Uttaranchal University</h4>
+          <p>
+            Prem Nagar, Dehradun, Uttarakhand<br />
+            India – 248007
+          </p>
+        </div>
+        <!-- Column 2 : quick links to all pages -->
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About College</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <!-- Column 3 : contact details -->
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li>☎ +91-135-2770300</li>
+            <li>✉ info@uttaranchaluniversity.ac.in</li>
+            <li>📅 Mon – Sat: 9:00 AM – 5:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Uttaranchal University · College Student Information Portal · All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-top button (shown by script.js after scrolling) -->
+  <button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+  <!-- =============================================
+       HOME PAGE JAVASCRIPT
+       Task from project brief:
+       "Use JavaScript to display a welcome message
+        when Explore Now button is clicked."
+       ============================================= -->
+  <script>
+    /* 1) Find the button and the empty banner div by their id */
+    document.getElementById("exploreBtn").addEventListener("click", function () {
+
+      /* 2) prompt() = small browser pop-up that asks the user's name */
+      const name = prompt("Please enter your name:", "Student");
+
+      /* 3) Locate the welcome-banner div to write the message into */
+      const banner = document.getElementById("welcomeMsg");
+
+      /* 4) Build the message.
+            If the user typed a name use it, otherwise default text. */
+      const msg = (name && name.trim() !== "")
+        ? "🎓 Welcome, " + name.trim() + "! Explore the world of opportunities at Uttaranchal University."
+        : "🎓 Welcome to Uttaranchal University! Explore a world of opportunities today.";
+
+      /* 5) Put the text inside the banner... */
+      banner.textContent = msg;
+
+      /* 6) ...and add the .show class so CSS makes it visible
+            (animated with the 'pop' keyframe in style.css) */
+      banner.classList.add("show");
+    });
+  </script>
+
+  <!-- =============================================
+       SIGN IN / CREATE ACCOUNT POPUP
+       Opened by the navbar "Sign In" button.
+       Full login logic with JWT lives in auth.js.
+       ============================================= -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+
+      <!-- Header row: logo + close X -->
+      <div class="auth-head">
+        <img src="logo.png" alt="" class="auth-logo" />
+        <button type="button" class="auth-close" id="authClose" aria-label="Close sign in popup">&times;</button>
+      </div>
+
+      <!-- Title (JS switches text between Sign In / Create Account) -->
+      <h3 class="auth-title" id="authTitle">Sign In</h3>
+
+      <!-- Tabs to switch between the two forms -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-tab="login">Sign In</button>
+        <button type="button" class="auth-tab" data-tab="signup">Create Account</button>
+      </div>
+
+      <!-- ---------- SIGN IN form ---------- -->
+      <form id="loginForm" novalidate>
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="loginPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="loginPass" placeholder="Your password" autocomplete="current-password" />
+          <button type="button" class="pwd-toggle" data-for="loginPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="login"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Sign In</button>
+
+        <p class="auth-hint">Demo login &mdash; <strong>admin@uttaranchal.edu</strong>&nbsp;/&nbsp;<strong>admin123</strong></p>
+      </form>
+
+      <!-- ---------- CREATE ACCOUNT form ---------- -->
+      <form id="signupForm" novalidate hidden>
+        <label for="signupName">Full Name</label>
+        <input type="text" id="signupName" placeholder="e.g. Prince Kumar" autocomplete="name" />
+
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="signupPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="signupPass" placeholder="At least 6 characters" autocomplete="new-password" />
+          <button type="button" class="pwd-toggle" data-for="signupPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="signup"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Create Account</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Small notification toast (login success / logout) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Shared JavaScript: hamburger menu + scroll-to-top -->
+  <script src="script.js"></script>
+
+  <!-- Sign In / JWT login logic (runs on every page) -->
+  <script src="auth.js"></script>
+</body>
+</html>

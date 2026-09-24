@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     PROJECT : College Student Information Portal
+     COLLEGE : Uttaranchal University
+     PAGE    : Contact (contact.html)
+     TECH    : HTML + CSS + JavaScript (no backend/database)
+     PURPOSE : Contact form (name, email, mobile, subject,
+               message) validated completely in JavaScript.
+               Shows success/error messages without a database.
+  ========================================================= -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Uttaranchal University</title>
+  <!-- Shared stylesheet for all pages -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =============================================
+       HEADER / NAVIGATION
+       "Contact" page link has the .active class.
+       ============================================= -->
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <!-- College logo (image) + college name -->
+        <img class="brand-logo"
+             src="logo.png"
+             alt="Uttaranchal University logo" />
+        <div>
+          <h1>Uttaranchal University</h1>
+          <p>College Student Information Portal</p>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <!-- Hamburger button: only becomes visible on mobile screens -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- Main navigation menu - links to all 4 pages -->
+        <nav class="nav-links" id="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="courses.html">Courses</a>
+          <a href="contact.html" class="active">Contact</a>
+        </nav>
+
+        <!-- Sign In button (auth.js swaps this for the user chip after login) -->
+        <button class="btn signin-btn" id="authBtn" type="button">Sign In</button>
+
+        <!-- Logged-in user chip: avatar + name + Logout dropdown -->
+        <div class="user-chip" id="userChip" hidden>
+          <span class="user-avatar" id="userAvatar">U</span>
+          <span class="user-name" id="userName">User</span>
+          <div class="user-menu" id="userMenu">
+            <a href="#" id="logoutBtn" class="logout-item">Logout</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =============================================
+       PAGE HEADER BANNER (shorter hero)
+       ============================================= -->
+  <section class="hero" style="min-height: 42vh; padding: 60px 20px;">
+    <div class="hero-content">
+      <span class="tag">We'd Love To Hear From You</span>
+      <h2>Contact <span style="color:var(--gold);">Us</span></h2>
+      <p>Have a question about admissions, courses or campus life? Send us a message below.</p>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CONTACT SECTION
+       Left column  = contact info panel (address, phone etc.)
+       Right column = the contact form.
+       ============================================= -->
+  <section class="section">
+    <div class="container contact-grid">
+
+      <!-- ---------- LEFT: CONTACT INFO PANEL ---------- -->
+      <aside class="contact-info">
+        <h3>Get In Touch</h3>
+
+        <!-- Address -->
+        <div class="info-row">
+          <div class="ci">📍</div>
+          <div>
+            <strong>Visit Us</strong>
+            <span>Prem Nagar, Dehradun,<br />Uttarakhand – 248007, India</span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="info-row">
+          <div class="ci">📞</div>
+          <div>
+            <strong>Call Us</strong>
+            <span>+91-135-2770300<br />Admissions Helpline: 1800-574-2830</span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="info-row">
+          <div class="ci">✉</div>
+          <div>
+            <strong>Email Us</strong>
+            <span>info@uttaranchaluniversity.ac.in<br />admissions@uttaranchaluniversity.ac.in</span>
+          </div>
+        </div>
+
+        <!-- Office hours -->
+        <div class="info-row">
+          <div class="ci">🕒</div>
+          <div>
+            <strong>Office Hours</strong>
+            <span>Mon – Sat: 9:00 AM – 5:00 PM</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ---------- RIGHT: CONTACT FORM ---------- -->
+      <div class="contact-form-wrap">
+        <h3 style="font-family: Georgia, serif; color:#2b2d42; margin-bottom: 6px;">Send Us A Message</h3>
+        <p style="font-size:0.9rem; margin-bottom: 24px;">All fields marked * are required.</p>
+
+        <!-- novalidate = tell the browser NOT to auto-validate;
+             we do all validation ourselves in JavaScript. -->
+        <form id="contactForm" novalidate>
+
+          <!-- 1) Student Name -->
+          <div class="form-group">
+            <label for="name">Student Name *</label>
+            <input type="text" id="name" placeholder="Enter your full name" />
+            <!-- Error text; JS shows it only when validation fails -->
+            <span class="error-msg" id="nameErr">Name cannot be empty.</span>
+          </div>
+
+          <!-- 2) Email + Mobile side by side (2-column row) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" placeholder="you@example.com" />
+              <span class="error-msg" id="emailErr">Please enter a valid email address.</span>
+            </div>
+            <div class="form-group">
+              <label for="mobile">Mobile Number *</label>
+              <!-- maxlength=10 also stops the user typing more than 10 digits -->
+              <input type="tel" id="mobile" placeholder="10-digit mobile number" maxlength="10" />
+              <span class="error-msg" id="mobileErr">Mobile number must be exactly 10 digits.</span>
+            </div>
+          </div>
+
+          <!-- 3) Subject (dropdown) -->
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <select id="subject">
+              <option value="">-- Select a subject --</option>
+              <option>Admission Enquiry</option>
+              <option>Course Information</option>
+              <option>Scholarship / Fee Query</option>
+              <option>Hostel & Campus Visit</option>
+              <option>Other</option>
+            </select>
+            <span class="error-msg" id="subjectErr">Please choose a subject.</span>
+          </div>
+
+          <!-- 4) Message -->
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" placeholder="Write your message here..."></textarea>
+            <span class="error-msg" id="messageErr">Message cannot be empty.</span>
+          </div>
+
+          <!-- 5) Submit & Reset buttons -->
+          <button type="submit" class="btn btn-maroon">Send Message</button>
+          <!-- Reset simply clears the form (button type="reset") -->
+          <button type="reset" class="btn btn-outline" style="border-color:#7a0c2e; color:#7a0c2e; margin-left:10px;">Reset</button>
+
+          <!-- Big success / error box filled by JavaScript -->
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER (same on every page)
+       ============================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <h4>Uttaranchal University</h4>
+          <p>
+            Prem Nagar, Dehradun, Uttarakhand<br />
+            India – 248007
+          </p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About College</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li>☎ +91-135-2770300</li>
+            <li>✉ info@uttaranchaluniversity.ac.in</li>
+            <li>📅 Mon – Sat: 9:00 AM – 5:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Uttaranchal University · College Student Information Portal · All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-top button (shown by script.js after scrolling) -->
+  <button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+  <!-- =============================================
+       CONTACT FORM VALIDATION JAVASCRIPT
+       Task from project brief:
+       - Name should not be empty
+       - Email should be in valid format
+       - Mobile number should contain 10 digits
+       - Message should not be empty
+       - Show success/error message (no database used)
+       ============================================= -->
+  <script>
+    /* --- 1) Gather all form elements by their ids --- */
+    const form = document.getElementById("contactForm");      // the <form>
+    const nameInput = document.getElementById("name");        // name field
+    const emailInput = document.getElementById("email");      // email field
+    const mobileInput = document.getElementById("mobile");    // mobile field
+    const subjectInput = document.getElementById("subject");  // dropdown
+    const messageInput = document.getElementById("message");  // textarea
+    const formMsg = document.getElementById("formMsg");       // result box
+
+    /* --- 2) List of [input, error-message-block] pairs.
+         Used for clearing validation styling after typing. --- */
+    const fields = [
+      { input: nameInput, error: document.getElementById("nameErr") },
+      { input: emailInput, error: document.getElementById("emailErr") },
+      { input: mobileInput, error: document.getElementById("mobileErr") },
+      { input: subjectInput, error: document.getElementById("subjectErr") },
+      { input: messageInput, error: document.getElementById("messageErr") },
+    ];
+
+    /* --- 3) Helper function: mark a single field valid/invalid.
+         - invalid = true  -> add .invalid class (red border)
+                              + show the error text (.show)
+         - invalid = false -> clear both
+         Returns true/false so we can collect field by field. --- */
+    function setField(input, errorEl, valid) {
+      input.classList.toggle("invalid", !valid); // red style
+      errorEl.classList.toggle("show", !valid);  // visible error text
+      return valid;
+    }
+
+    /* --- 4) Validation rule for EMAIL.
+         Regex: anything @ anything . at-least-2-letters
+         e.g. abc@xyz.com  --> passes
+              abc@xyz       --> fails (no dot part) ---- */
+    function isValidEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    }
+
+    /* --- 5) Validation rule for MOBILE.
+         Regex: exactly 10 digits, 0-9 only. ---- */
+    function isValidMobile(v) {
+      return /^[0-9]{10}$/.test(v);
+    }
+
+    /* --- 6) While the user is typing, remove old red borders
+         and error texts, and clear any earlier result message,
+         so errors only show at the moment of submission. --- */
+    fields.forEach(function (f) {
+      f.input.addEventListener("input", function () {
+        f.input.classList.remove("invalid");
+        f.error.classList.remove("show");
+        formMsg.className = "form-msg"; // hide message box again
+      });
+    });
+
+    /* --- 7) The main submit handler.
+         When the user clicks "Send Message" this runs INSTEAD of
+         the form submitting to a server (there is no server). --- */
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // stop the page from reloading
+
+      /* Check every rule one by one. Each returns true/false. */
+      const nameOk = setField(nameInput, document.getElementById("nameErr"),
+                              nameInput.value.trim() !== "");
+      const emailOk = setField(emailInput, document.getElementById("emailErr"),
+                               isValidEmail(emailInput.value.trim()));
+      const mobileOk = setField(mobileInput, document.getElementById("mobileErr"),
+                                isValidMobile(mobileInput.value.trim()));
+      const subjectOk = setField(subjectInput, document.getElementById("subjectErr"),
+                                 subjectInput.value.trim() !== "");
+      const msgOk = setField(messageInput, document.getElementById("messageErr"),
+                             messageInput.value.trim() !== "");
+
+      /* --- 8) Decide success or error.
+           Only if ALL fields passed do we show the SUCCESS message;
+           otherwise we show an ERROR message asking to fix fields. --- */
+      if (nameOk && emailOk && mobileOk && subjectOk && msgOk) {
+        /* SUCCESS: no database used - just a friendly on-screen message */
+        formMsg.className = "form-msg success";
+        formMsg.innerHTML = "✅ Thank you, <strong>" + nameInput.value.trim() +
+                            "</strong>! Your message has been received. " +
+                            "Our admissions team will contact you at <strong>" +
+                            emailInput.value.trim() + "</strong> within 24 hours.";
+
+        /* reset() clears all the input boxes after a successful send */
+        form.reset();
+      } else {
+        /* ERROR: keep the typed data, just tell the user to fix fields */
+        formMsg.className = "form-msg error";
+        formMsg.textContent = "⚠️ Please correct the highlighted fields before submitting.";
+      }
+
+      /* Smoothly scroll the result/error box into view */
+      formMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  </script>
+
+  <!-- =============================================
+       SIGN IN / CREATE ACCOUNT POPUP
+       Opened by the navbar "Sign In" button.
+       Full login logic with JWT lives in auth.js.
+       ============================================= -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+
+      <!-- Header row: logo + close X -->
+      <div class="auth-head">
+        <img src="logo.png" alt="" class="auth-logo" />
+        <button type="button" class="auth-close" id="authClose" aria-label="Close sign in popup">&times;</button>
+      </div>
+
+      <!-- Title (JS switches text between Sign In / Create Account) -->
+      <h3 class="auth-title" id="authTitle">Sign In</h3>
+
+      <!-- Tabs to switch between the two forms -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-tab="login">Sign In</button>
+        <button type="button" class="auth-tab" data-tab="signup">Create Account</button>
+      </div>
+
+      <!-- ---------- SIGN IN form ---------- -->
+      <form id="loginForm" novalidate>
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="loginPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="loginPass" placeholder="Your password" autocomplete="current-password" />
+          <button type="button" class="pwd-toggle" data-for="loginPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="login"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Sign In</button>
+
+        <p class="auth-hint">Demo login &mdash; <strong>admin@uttaranchal.edu</strong>&nbsp;/&nbsp;<strong>admin123</strong></p>
+      </form>
+
+      <!-- ---------- CREATE ACCOUNT form ---------- -->
+      <form id="signupForm" novalidate hidden>
+        <label for="signupName">Full Name</label>
+        <input type="text" id="signupName" placeholder="e.g. Prince Kumar" autocomplete="name" />
+
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="signupPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="signupPass" placeholder="At least 6 characters" autocomplete="new-password" />
+          <button type="button" class="pwd-toggle" data-for="signupPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="signup"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Create Account</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Small notification toast (login success / logout) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Shared JavaScript: hamburger menu + scroll-to-top -->
+  <script src="script.js"></script>
+
+  <!-- Sign In / JWT login logic (runs on every page) -->
+  <script src="auth.js"></script>
+</body>
+</html>

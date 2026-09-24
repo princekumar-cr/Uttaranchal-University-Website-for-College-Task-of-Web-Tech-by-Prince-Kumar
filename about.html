@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     PROJECT : College Student Information Portal
+     COLLEGE : Uttaranchal University
+     PAGE    : About (about.html)
+     TECH    : HTML + CSS + JavaScript (no backend/database)
+     PURPOSE : College history, Vision & Mission, Principal's
+               message, and courses offered - all presented
+               as styled cards/sections.
+  ========================================================= -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About College | Uttaranchal University</title>
+  <!-- Shared stylesheet for all pages -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =============================================
+       HEADER / NAVIGATION
+       "About" page link has the .active class.
+       ============================================= -->
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <!-- College logo (image) + college name -->
+        <img class="brand-logo"
+             src="logo.png"
+             alt="Uttaranchal University logo" />
+        <div>
+          <h1>Uttaranchal University</h1>
+          <p>College Student Information Portal</p>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <!-- Hamburger button: only becomes visible on mobile screens -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- Main navigation menu - links to all 4 pages -->
+        <nav class="nav-links" id="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html" class="active">About</a>
+          <a href="courses.html">Courses</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Sign In button (auth.js swaps this for the user chip after login) -->
+        <button class="btn signin-btn" id="authBtn" type="button">Sign In</button>
+
+        <!-- Logged-in user chip: avatar + name + Logout dropdown -->
+        <div class="user-chip" id="userChip" hidden>
+          <span class="user-avatar" id="userAvatar">U</span>
+          <span class="user-name" id="userName">User</span>
+          <div class="user-menu" id="userMenu">
+            <a href="#" id="logoutBtn" class="logout-item">Logout</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =============================================
+       PAGE HEADER BANNER
+       Shorter version of the hero (only 42vh tall).
+       ============================================= -->
+  <section class="hero" style="min-height: 42vh; padding: 60px 20px;">
+    <div class="hero-content">
+      <span class="tag">About The University</span>
+      <h2>Our Story, Values & People</h2>
+      <p>Three decades of academic excellence rooted in the Himalayas, building future leaders for India and the world.</p>
+    </div>
+  </section>
+
+  <!-- =============================================
+       COLLEGE HISTORY + VISION + MISSION
+       Presented using CSS cards (.about-card).
+       ============================================= -->
+  <section class="section">
+    <div class="container">
+      <!-- Section heading (kicker + title) -->
+      <div class="section-head">
+        <span class="kicker">Who We Are</span>
+        <h2>About <span class="underline-gold">Uttaranchal University</span></h2>
+      </div>
+
+      <div class="about-grid">
+        <!-- Card 1 : History (spans the full grid width because of .wide) -->
+        <div class="about-card wide">
+          <h3>🏛️ Our History</h3>
+          <p>
+            Uttaranchal University was established in 2013 under the Uttaranchal University Act, 2012
+            and is approved by the UGC. It began as a small seat of learning and has rapidly grown
+            into one of North India's most dynamic private universities. Its roots, however, go back
+            to 1996 through the legacy of its parent organisations - the Highways Institute of
+            Management and the S.M.S. Group of Institutions, pioneers in professional education in
+            Uttarakhand.
+          </p>
+          <p>
+            Today the university runs 75+ programmes across its faculties, nurtures students from all
+            corners of the country, and is proudly recognised as a NAAC 'A+' accredited university.
+          </p>
+        </div>
+
+        <!-- Card 2 : Vision -->
+        <div class="about-card">
+          <h3>🎯 Our Vision</h3>
+          <p>
+            To be a centre of excellence that imparts globally relevant education, fosters
+            research and innovation, and transforms young minds into competent, humane and
+            socially responsible professionals.
+          </p>
+        </div>
+
+        <!-- Card 3 : Mission -->
+        <div class="about-card">
+          <h3>🚀 Our Mission</h3>
+          <p>
+            To provide quality, affordable education through an industry-aligned curriculum;
+            to create state-of-the-art learning infrastructure; and to develop ethical, skilled
+            graduates who contribute positively to society and the economy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       PRINCIPAL'S MESSAGE
+       Two-column block: photo area on left, text right.
+       ============================================= -->
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">From The Desk</span>
+        <h2>Principal's <span class="underline-gold">Message</span></h2>
+      </div>
+
+      <div class="principal">
+        <!-- Left side : placeholder for the principal's photo -->
+        <div class="principal-photo">🧑‍🏫</div>
+
+        <!-- Right side : message text -->
+        <div class="principal-text">
+          <h3>Prof. (Dr.) Dharam Buddhi</h3>
+          <!-- Small pill badge for the role -->
+          <span class="role">Chancellor</span>
+          <p>
+            "At Uttaranchal University, we believe education is not just about degrees - it is about
+            curiosity, character and courage. Our classrooms encourage questions, our laboratories
+            reward experimentation, and our campus community nurtures every student as family.
+          </p>
+          <p>
+            I invite every young learner to make the most of our vibrant ecosystem of academics,
+            sports, culture and innovation, and to emerge as leaders who make our nation proud."
+          </p>
+          <!-- Styled quote at the bottom -->
+          <blockquote>"Knowledge is the only treasure that grows when shared."</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       COURSES OFFERED (summary)
+       Compact cards for each school/faculty linking
+       to the full Courses page.
+       ============================================= -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Academics</span>
+        <h2>Courses <span class="underline-gold">We Offer</span></h2>
+        <p>A diverse range of programmes delivered across our faculties and schools.</p>
+      </div>
+
+      <div class="card-grid">
+        <!-- Faculty card 1 : Engineering -->
+        <div class="feature-card">
+          <div class="icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          </div>
+          <h3>Engineering & Technology</h3>
+          <p>B.Tech in CSE, ME, Civil, Electrical & Specialisations like AI, Data Science, IoT.</p>
+        </div>
+
+        <!-- Faculty card 2 : Management -->
+        <div class="feature-card">
+          <div class="icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 8l2 2-2 2M9 12l-2 2 2 2"/></svg>
+          </div>
+          <h3>Management Studies</h3>
+          <p>BBA, B.Com (Hons), MBA with specialisations in finance, marketing & HR.</p>
+        </div>
+
+        <!-- Faculty card 3 : Law -->
+        <div class="feature-card">
+          <div class="icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg>
+          </div>
+          <h3>Law (School of Law)</h3>
+          <p>BA-LLB, BBA-LLB, LLB and LLM with moot courts and live internship clinics.</p>
+        </div>
+
+        <!-- Faculty card 4 : Life Sciences & Pharmacy -->
+        <div class="feature-card">
+          <div class="icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20h2M4 4h16v12H4z"/><path d="M8 8h8M8 12h5"/></svg>
+          </div>
+          <h3>Life Sciences & Pharmacy</h3>
+          <p>B.Sc (Hons), D.Pharm, B.Pharm, M.Pharm keeping pace with modern research.</p>
+        </div>
+      </div>
+
+      <!-- Button to the full course list -->
+      <div style="text-align:center; margin-top: 36px;">
+        <a href="courses.html" class="btn btn-maroon">See Full Course List</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       DEVELOPER SECTION (Developed By credit)
+       Introduces the student who designed & built
+       this website: Prince Kumar - Class Rep, BCA.
+       ============================================= -->
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Meet The Developer</span>
+        <h2>Developed By <span class="underline-gold">Prince Kumar</span></h2>
+        <p>The student behind this College Student Information Portal.</p>
+      </div>
+
+      <!-- Centred developer profile card -->
+      <div class="developer-card">
+        <!-- Avatar with the developer's photo -->
+        <img class="dev-avatar"
+             src="https://raw.githubusercontent.com/princesingh0101/THE-IMAGE-COLLECTIONS/main/prince_new_image.png"
+             alt="Prince Kumar - Developer" />
+
+        <!-- Name + role pill -->
+        <h3>Prince Kumar</h3>
+        <span class="role">Developer · Designer</span>
+
+        <!-- Badges : Class Representative + BCA Student -->
+        <div class="dev-badges">
+          <span>🎓 BCA Student</span>
+          <span>👨‍💼 Class Representative</span>
+        </div>
+
+        <!-- Short description about the developer
+             and what was used to build the site -->
+        <p>
+          Prince Kumar is a BCA student at Uttaranchal University, proudly serving as the
+          <strong>Class Representative</strong> of his batch. He designed and developed this
+          College Student Information Portal using only
+          <strong>HTML, CSS and JavaScript</strong> — with a fully responsive, attractive and
+          easy-to-use interface for every visitor.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER (same on every page)
+       ============================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <h4>Uttaranchal University</h4>
+          <p>
+            Prem Nagar, Dehradun, Uttarakhand<br />
+            India – 248007
+          </p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About College</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li>☎ +91-135-2770300</li>
+            <li>✉ info@uttaranchaluniversity.ac.in</li>
+            <li>📅 Mon – Sat: 9:00 AM – 5:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Uttaranchal University · College Student Information Portal · All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-top button (shown by script.js after scrolling) -->
+  <button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+  <!-- =============================================
+       SIGN IN / CREATE ACCOUNT POPUP
+       Opened by the navbar "Sign In" button.
+       Full login logic with JWT lives in auth.js.
+       ============================================= -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+
+      <!-- Header row: logo + close X -->
+      <div class="auth-head">
+        <img src="logo.png" alt="" class="auth-logo" />
+        <button type="button" class="auth-close" id="authClose" aria-label="Close sign in popup">&times;</button>
+      </div>
+
+      <!-- Title (JS switches text between Sign In / Create Account) -->
+      <h3 class="auth-title" id="authTitle">Sign In</h3>
+
+      <!-- Tabs to switch between the two forms -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-tab="login">Sign In</button>
+        <button type="button" class="auth-tab" data-tab="signup">Create Account</button>
+      </div>
+
+      <!-- ---------- SIGN IN form ---------- -->
+      <form id="loginForm" novalidate>
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="loginPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="loginPass" placeholder="Your password" autocomplete="current-password" />
+          <button type="button" class="pwd-toggle" data-for="loginPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="login"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Sign In</button>
+
+        <p class="auth-hint">Demo login &mdash; <strong>admin@uttaranchal.edu</strong>&nbsp;/&nbsp;<strong>admin123</strong></p>
+      </form>
+
+      <!-- ---------- CREATE ACCOUNT form ---------- -->
+      <form id="signupForm" novalidate hidden>
+        <label for="signupName">Full Name</label>
+        <input type="text" id="signupName" placeholder="e.g. Prince Kumar" autocomplete="name" />
+
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="signupPass">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="signupPass" placeholder="At least 6 characters" autocomplete="new-password" />
+          <button type="button" class="pwd-toggle" data-for="signupPass">Show</button>
+        </div>
+
+        <p class="auth-error" data-err="signup"></p>
+
+        <button type="submit" class="btn btn-gold auth-submit">Create Account</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Small notification toast (login success / logout) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Shared JavaScript: hamburger menu + scroll-to-top -->
+  <script src="script.js"></script>
+
+  <!-- Sign In / JWT login logic (runs on every page) -->
+  <script src="auth.js"></script>
+</body>
+</html>
